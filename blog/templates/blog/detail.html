@@ -1,0 +1,72 @@
+{% extends "main.html" %}
+{% block content %}
+<main id="main" role="main" class=" layout layout--2">
+
+    <div class="container">
+        <div class="detail--col">
+            <!-- Content of the page -->
+            <article >
+                <!-- Post Block of the page -->
+                <div class="">
+                    <div class="">
+                        <div class="detail--img">
+                            <img src="{{post.image.url}}" alt="image description">
+                        </div>
+                        <time datetime="2011-01-12"><a href="#">{{post.created|date:"d M"}} - {{post.category}}</a></time>
+                        <h2>{{post.title}}</h2>
+                        <p>{{post.content|safe}}</p>
+                        <div>
+                            <a href="{% url "update" post.slug %}"><input type="submit"  class="btn btn--main" value = 'Update'></a>
+                            <a href="{% url "delete" post.slug %}"><input type="submit"  class="btn btn--main" value = 'Delete'></a>
+                        </div>
+                    
+                       
+                    </div>
+                </div>
+                <div style="height:300px;width:700px;border:2px solid #ccc;overflow:auto;padding: 20px;">
+                   
+                    <div>
+                        {% for comment in blog_comments %}
+                        <div style="display:flex; justify-content:space-between;border-left-style: solid;">
+                            <a href="{% url 'user-profile' comment.user.username %}" class="roomListRoom__author">
+                                <div class="avatar avatar--small">
+                                    <img src="{{comment.user.avatar.url}}" />
+                                </div>
+                                <span>@{{comment.user.username}}</span>
+                            </a>
+                            <div style="font-size:13px;">
+                                <span>{{comment.created|timesince}} ago</span>
+                            </div>
+       
+                        </div>
+                        <p>{{comment.comment}}</p>
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+                <div class="form">
+                    <form action="" method="POST">
+                      {% csrf_token %}
+                      <div class="form__group" >
+                        
+                        <label for="room_name">Comment</label>
+                        
+                        <div class="form__action" style="display:flex;">
+                            <input name="body" placeholder="Write your comment here..." />
+                            <button class="btn btn--main" type="submit">Comment</button>
+                        </div>
+                      </div>
+                     
+                      
+                    </form>
+                  </div>
+            </article> 
+            
+            <div>
+                recent post
+            </div>
+        </div>
+    </div>
+    
+</main>
+{% endblock content %}

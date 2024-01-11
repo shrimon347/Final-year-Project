@@ -1,0 +1,14 @@
+{% extends "main.html" %} {% block content %}
+<div class="container" style="margin:12%">
+    <h3>Are you sure want to delete this {{data}} ?</h3>
+  <form method="POST" enctype="multipart/form-data" class="mt-5 pt-5">
+    {% csrf_token %}
+      <div class="col-md-12" >
+        {{form.media}}
+        {{form.as_p}}
+        <input type="submit"  class="btn btn-primary" value = 'delete'>
+    </div>
+  </form>
+</div>
+
+{% endblock content %}

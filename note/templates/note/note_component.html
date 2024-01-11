@@ -1,0 +1,28 @@
+{% for note in data%}
+{% if note.status %}
+<div class="roomListRoom">
+    <div class="roomListRoom__header">
+        <a href="{% url 'user-profile' note.user.username %}" class="roomListRoom__author">
+            <div class="avatar avatar--small">
+                <img src="{{note.user.avatar.url}}" />
+            </div>
+            <span>@{{note.user.username}}</span>
+        </a>
+        <div class="roomListRoom__actions">
+            <span>{{note.branch}}</span>
+        </div>
+    </div>
+    <div class="roomListRoom__content">
+        <a href="{{note.notesfile.url}}" download>{{note.notesfile}}</a> <br>
+        <p>{{note.description}}</p>
+    </div>
+    <div class="roomListRoom__meta">
+        <div class="roomListRoom__joined">
+            <span>{{note.created|timesince}} ago</span>
+        </div>
+        <p class="roomListRoom__topic">{{note.subject}}</p>
+    </div>
+</div>
+
+{% endif %}
+{% endfor %}
